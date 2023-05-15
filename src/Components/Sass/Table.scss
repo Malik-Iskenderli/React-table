@@ -1,0 +1,25 @@
+.table{
+    margin: 0 1rem;
+    padding: 0 4rem 0 1rem;
+    .table-header{
+        margin: 0 1rem 1rem ;
+        h3{
+            padding: 1rem 0 1rem 0;
+        }
+        .check-table{
+            display: flex;
+            gap: 1rem;
+            div{
+                background-color: white;
+                border-radius: 10px;
+                padding: 10px;
+                display: flex;
+                gap: 1rem;
+                align-items: center;
+                span{
+                    color:#cbcdcf ;
+                }
+            }
+        }
+    }
+}
