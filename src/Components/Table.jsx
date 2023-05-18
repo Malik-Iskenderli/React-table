@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './Sass/Table.scss'
+import { Skeleton } from 'antd'
 // import  Skeleton,{SkeletonTheme} from 'react-loading-skeleton'
 // import 'react-loading-skeleton/dist/skeleton.css'
-import { Row, Skeleton } from 'antd'
 
-const Table = ({ posts, comments, sceleton, setSceleton }) => {
+const Table = ({ posts, tableHeads, sceleton }) => {    
+
     return (
         <div className='table'>
             <div className='table-header'>
@@ -21,56 +22,25 @@ const Table = ({ posts, comments, sceleton, setSceleton }) => {
             <table className="table table-bordered text-center">
                 <thead>
                     <tr>
-                        <th>title</th>
-                        <th>body</th>
+                        {
+                            tableHeads.map((heading, key) => {
+                                return <th key={heading.id}>{heading}</th>
+                            })
+                        }
                     </tr>
                 </thead>
                 <tbody>
-
                     {
                         posts.map((item, key) => (
-
-
-                            sceleton ?
-
-
-                                <tr>
-
-                                    <td ><Skeleton active title={false} /></td>
-                                    <td><Skeleton active title={false} /></td>
-                                    <td><Skeleton active title={false} /></td>
-                                    <td><Skeleton active title={false} /></td>
-
-                                </tr>
-                                : <>
-                                    <tr>
-                                        <td>{item.title}</td>
-                                        <td>{item.body}</td>
-                                    </tr>
-                                </>
+                            <tr>
+                                {
+                                   tableHeads && tableHeads.map((heading,key) => {
+                                        return <td key={item.id}>{item[heading]}</td>
+                                    })
+                                }
+                            </tr>
                         ))
                     }
-                    {/* {
-                        comments.map((item,key)=>(
-                            sceleton ?
-                                <tr>
-                                    <td><Skeleton active="active" paragraph={{ rows: 1 }} /></td>
-                                    <td><Skeleton active="active" paragraph={{ rows: 1 }} /></td>
-                                    <td><Skeleton active="active" paragraph={{ rows: 1 }} /></td>
-                                    <td><Skeleton active="active" paragraph={{ rows: 1 }} /></td>
-
-                                </tr>
-                                :
-                            <>
-                                    <tr>
-                                        <td>{item.name}</td>
-                                        <td>{item.email}</td>
-                                        <td>{item.body}</td>
-                                    </tr>
-                                </>
-                        ))
-                    } */}
-
                 </tbody>
             </table>
         </div>
