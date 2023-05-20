@@ -5,44 +5,27 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const Sidebar = () => {
-  const [posts, setPosts] = useState([])
-  console.log("gelen melumat:", posts)
-  const [tableHeads,setTableHeads] = useState([])
-  const [inputValue, setInputValue] = useState("")
-  const [sceleton, setSceleton] = useState(false)
+  const [posts, setPosts] = useState([]) //API den gelen melumatlar bunda saxlanilir
+  const [inputValue, setInputValue] = useState("") // inputumuza daxil etdiklerimiz burda
+  const [tableHeads, setTableHeads] = useState([]) //API den gelen melumatlari objeckt keyse cevirmek
 
-  // const textChange = (e) => {
-  //   if (e.target.value === "posts") {
-  //     setSceleton(false)
-  //     setTarget(e.target.value)
-  //     const error = document.querySelector('.message p')
-  //     error.innerHTML = ("Axtardiginiz netice tapildi:")
-  //   } else if (e.target.value === "") {
-  //     setSceleton(false)
-  //     toast.warning("Axtardiginiz melumatin adini daxil edin:")
-  //     const error = document.querySelector('.message p')
-  //     error.innerHTML = ("Axtardiginiz melumatin adini daxil edin:")
-  //   }
-  //   else {
-  //     setSceleton(true)
-  //     toast.error("Zehmet olmasa duzgun adi daxil edin....")
-  //     const error = document.querySelector('.message p')
-  //     error.innerHTML = ("Zehmet olmasa duzgun adi daxil edin....")
-  //   }
-  // }
 
-  const getRequestApi =  async () => {
+
+  const getRequestApi = async () => {
     const url = `https://jsonplaceholder.typicode.com/${inputValue}`
     const response = await fetch(url)
     const data = await response.json()
-      try{
-        setPosts(data) 
-        setTableHeads(Object.keys(data[0]))
+    try {
+      setPosts(data)
+      setTableHeads(Object.keys(data[0]))
+    }
+
+    catch {
+      if (posts != url) {
+        toast("melumat yoxdur")
       }
-  
-      catch{
-        toast("Melumat tapilmadi")
-      }
+
+    }
   }
 
   const handleSubmit = (e) => {
@@ -63,12 +46,12 @@ const Sidebar = () => {
             onChange={(e) => {
               setInputValue(e.target.value)
             }}
-            value={ inputValue }
+            value={inputValue}
           />
-          <button 
+          <button
             className='btnn'
             onClick={handleSubmit}
-            >Axtar</button>
+          >Axtar</button>
         </form>
         <div className="message">
           <p>Axtaris etmek ucun asagida qeyd olunmus sozleri yazaraq baxa bilersiz...</p><br />
@@ -83,12 +66,11 @@ const Sidebar = () => {
 
 
       </div>
-      <Table 
-        posts={posts} 
+      <Table
+        posts={posts}
+        setPosts={setPosts}
         tableHeads={tableHeads}
-        sceleton={sceleton} 
-        setSceleton={setSceleton} 
-        />
+      />
       <ToastContainer />
     </div>
   )

@@ -13,6 +13,7 @@ function App() {
     <div className={theme ? "dark" : "light"}>
       <Navbar theme={theme} setTheme={setTheme} />
       <Sidebar />
+      
 
     </div>
   );

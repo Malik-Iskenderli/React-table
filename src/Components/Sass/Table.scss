@@ -1,8 +1,10 @@
 .table{
-    margin: 0 1rem;
-    padding: 0 4rem 0 1rem;
+    margin: 0 ;
+    padding-right: 3rem;
+    table{
+        margin-top: 2rem;
+    }
     .table-header{
-        margin: 0 1rem 1rem ;
         h3{
             padding: 1rem 0 1rem 0;
         }
@@ -23,3 +25,4 @@
         }
     }
 }
+
