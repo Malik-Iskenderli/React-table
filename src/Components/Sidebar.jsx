@@ -1,38 +1,116 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './Sass/Sidebar.scss'
 import Table from './Table.jsx'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import ComondContext from './Context/ComondContext';
 
 const Sidebar = () => {
+  // C O N T E X T
+  const { theme, setTheme } = useContext(ComondContext)
+
   const [posts, setPosts] = useState([]) //API den gelen melumatlar bunda saxlanilir
   const [inputValue, setInputValue] = useState("") // inputumuza daxil etdiklerimiz burda
-  const [tableHeads, setTableHeads] = useState([]) //API den gelen melumatlari objeckt keyse cevirmek
+  const [tableHeader, setTableHeader] = useState([]) //API den gelen melumatlari objeckt keyse cevirmek
+
+  // I N P U T    V A L U E 
+  const [post, setPost] = useState("posts")
+  const [comment, setComment] = useState("comments")
+  const [photo, setPhoto] = useState("photos")
+  const [album, setAlbum] = useState("albums")
+  const [todo, setTodo] = useState("todos")
 
 
-
+  // A P I
   const getRequestApi = async () => {
     const url = `https://jsonplaceholder.typicode.com/${inputValue}`
     const response = await fetch(url)
     const data = await response.json()
     try {
       setPosts(data)
-      setTableHeads(Object.keys(data[0]))
+      setTableHeader(Object.keys(data[0]))
     }
 
     catch {
-      if (posts != url) {
-        toast("melumat yoxdur")
-      }
-
+      setPosts([])
+      toast.warn("Belə bir APİ yoxdur", {
+        position: "top-left",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: theme ? "dark" : "light",
+      })
     }
   }
 
+  // C L I C K   B U T T O N
   const handleSubmit = (e) => {
     e.preventDefault();
     getRequestApi();
     setInputValue("");
+    if (inputValue === post) {
+      toast.success("Məlumat tapıldı", {
+        position: "bottom-left",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: theme ? "dark" : "light",
+      })
+    } else if (inputValue === comment) {
+      toast.success("Məlumat tapıldı", {
+        position: "bottom-left",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: theme ? "dark" : "light",
+      })
+    } else if (inputValue === photo) {
+      toast.success("Məlumat tapıldı", {
+        position: "bottom-left",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: theme ? "dark" : "light",
+      })
+    }
+    else if (inputValue === album) {
+      toast.success("Məlumat tapıldı", {
+        position: "bottom-left",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: theme ? "dark" : "light",
+      })
+    } else if (inputValue === todo) {
+      toast.success("Məlumat tapıldı", {
+        position: "bottom-left",
+        autoClose: 2000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: theme ? "dark" : "light",
+      })
+    }
   }
+
+
 
   return (
     <div className='sidebar-table'>
@@ -64,14 +142,15 @@ const Sidebar = () => {
           </ul>
         </div>
 
-
       </div>
       <Table
         posts={posts}
         setPosts={setPosts}
-        tableHeads={tableHeads}
+        tableHeader={tableHeader}
+        setTableHeader={setTableHeader}
       />
-      <ToastContainer />
+      <ToastContainer
+      />
     </div>
   )
 }

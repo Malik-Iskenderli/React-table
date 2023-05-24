@@ -1,11 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import './Sass/Table.scss'
-import { Skeleton } from 'antd'
-// import  Skeleton,{SkeletonTheme} from 'react-loading-skeleton'
-// import 'react-loading-skeleton/dist/skeleton.css'
+const Table = ({ posts, tableHeader, setPosts, setTableHeader }) => {
 
-const Table = ({ posts,setPosts, tableHeads, checked }) => {
+    const [checkedAll, setcheckedAll] = useState(true)
+    const [checked, setChecked] = useState(true)
 
+
+    const deleteRowsAll = (e) => {
+        if (e.target.checked) {
+            setcheckedAll(true)
+        } else {
+            setcheckedAll(false)
+        }
+    }
+
+    const deleteRows = (item,e) => {
+      if(e.target.checked){
+
+      } 
+    }
+
+   
     return (
         <div className='table'>
             <div className='table-header'>
@@ -13,46 +28,46 @@ const Table = ({ posts,setPosts, tableHeads, checked }) => {
                 <div className='check-table'>
                     <div>
                         <span>All</span>
-                        <input type="checkbox" id='check' />
+                        <input type="checkbox" checked={checkedAll} onChange={(e) => deleteRowsAll(e)}/>
                     </div>
-                    <div>
-                        <span>ID</span>
-                        <input type="checkbox"/>
-                    </div>
-                    <div>
-                        <span>Name</span><input type="checkbox" /></div>
-                    <div>
-                        <span>Email</span>
-                        <input type="checkbox" /></div>
-                    <div>
-                        <span>Test</span>
-                        <input type="checkbox" /></div>
+                     {
+                        tableHeader.map((item, key) => (
+                            <div key={key}>
+                                <span>{item}</span>
+                                <input type="checkbox" checked={checked}  onChange={(e)=>deleteRows(item,e)}/>
+                            </div >
+                        ))
+                    }
+
                 </div>
             </div>
-            <table className="table table-bordered text-center">
+            {checkedAll && <table className="table table-bordered text-center">
                 <thead>
                     <tr>
                         {
-                            tableHeads?.map((heading, key) => {
-                                return <th key={heading.id}>{heading}</th>
+                            tableHeader?.map((heading, key) => {
+                                return <th key={key}>{heading}</th>
                             })
                         }
+
                     </tr>
                 </thead>
                 <tbody>
                     {
                         posts?.map((item, key) => (
-                            <tr>
+                            <tr key={key}>
                                 {
-                                    tableHeads && tableHeads.map((heading, key) => {
-                                        return <td key={item.id}>{item[heading]}</td>
+                                    tableHeader && tableHeader.map((heading, key) => {
+                                        return <td key={key}>
+                                            {heading === "url" || heading === "thumbnailUrl" ? <img src={item[heading]} style={{ width: "150px", height: "150px" }} /> : item[heading]}
+                                        </td>
                                     })
                                 }
                             </tr>
                         ))
                     }
                 </tbody>
-            </table>
+            </table>}
         </div>
     )
 }

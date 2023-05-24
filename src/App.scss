@@ -55,6 +55,11 @@
         transition: 1s ease;
 .message{
     background-color: #6e6e6e;
+    ul{
+        li{
+            color: white;
+        }
+    }
     p{
         color: white;
     }

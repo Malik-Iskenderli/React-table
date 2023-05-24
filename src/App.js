@@ -1,20 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useContext } from 'react';
 import './App.scss';
 import Navbar from './Components/Navbar';
 import Sidebar from './Components/Sidebar';
+import ComondContext from './Components/Context/ComondContext';
 
 function App() {
-  const [theme, setTheme] = useState(JSON.parse(localStorage.getItem("theme") || false))
-
-  useEffect(() => {
-    localStorage.setItem("theme", JSON.stringify(theme))
-  }, [theme])
+  
+  const {theme,setTheme} = useContext(ComondContext)
   return (
     <div className={theme ? "dark" : "light"}>
-      <Navbar theme={theme} setTheme={setTheme} />
-      <Sidebar />
-      
-
+      <Navbar/>
+      <Sidebar/>
     </div>
   );
 }
